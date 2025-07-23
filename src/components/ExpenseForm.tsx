@@ -5,16 +5,11 @@ import { Label } from './ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Plus } from 'lucide-react';
-import { EXPENSE_CATEGORIES } from '../types/expense';
+import { EXPENSE_CATEGORIES, Expense } from '../types/expense';
 import toast from 'react-hot-toast';
 
 interface ExpenseFormProps {
-  onAddExpense: (expense: {
-    description: string;
-    amount: number;
-    category: string;
-    date: string;
-  }) => void;
+  onAddExpense: (expense: Omit<Expense, 'id' | 'createdAt' | 'type'>) => void;
 }
 
 export function ExpenseForm({ onAddExpense }: ExpenseFormProps) {
@@ -54,9 +49,9 @@ export function ExpenseForm({ onAddExpense }: ExpenseFormProps) {
   };
 
   return (
-    <Card className="w-full">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+    <Card className="w-full border-destructive/20 bg-gradient-to-br from-destructive/5 to-destructive/10">
+      <CardHeader className="pb-4">
+        <CardTitle className="flex items-center gap-2 text-destructive">
           <Plus className="h-5 w-5" />
           Nova Despesa
         </CardTitle>
@@ -122,7 +117,7 @@ export function ExpenseForm({ onAddExpense }: ExpenseFormProps) {
             </div>
           </div>
 
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full bg-destructive hover:bg-destructive/90 text-white">
             <Plus className="h-4 w-4 mr-2" />
             Adicionar Despesa
           </Button>

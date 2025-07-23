@@ -1,10 +1,19 @@
-export interface Expense {
+export interface Transaction {
   id: string;
   description: string;
   amount: number;
   category: string;
   date: string;
   createdAt: string;
+  type: 'income' | 'expense';
+}
+
+export interface Expense extends Transaction {
+  type: 'expense';
+}
+
+export interface Income extends Transaction {
+  type: 'income';
 }
 
 export interface CategorySummary {
@@ -12,6 +21,14 @@ export interface CategorySummary {
   total: number;
   count: number;
   color: string;
+}
+
+export interface MonthlySummary {
+  totalIncome: number;
+  totalExpenses: number;
+  balance: number;
+  incomeCount: number;
+  expenseCount: number;
 }
 
 export const EXPENSE_CATEGORIES = [
@@ -25,4 +42,14 @@ export const EXPENSE_CATEGORIES = [
   { value: 'outros', label: 'Outros', color: '#6b7280', icon: '📦' },
 ] as const;
 
+export const INCOME_CATEGORIES = [
+  { value: 'salario', label: 'Salário', color: '#059669', icon: '💰' },
+  { value: 'freelance', label: 'Freelance', color: '#0891b2', icon: '💻' },
+  { value: 'investimentos', label: 'Investimentos', color: '#7c3aed', icon: '📈' },
+  { value: 'vendas', label: 'Vendas', color: '#dc2626', icon: '🛒' },
+  { value: 'bonus', label: 'Bônus', color: '#ea580c', icon: '🎁' },
+  { value: 'outros', label: 'Outros', color: '#059669', icon: '💵' },
+] as const;
+
 export type ExpenseCategory = typeof EXPENSE_CATEGORIES[number]['value'];
+export type IncomeCategory = typeof INCOME_CATEGORIES[number]['value'];
